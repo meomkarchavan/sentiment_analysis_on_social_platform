@@ -23,14 +23,14 @@ def main():
         reddit_path=os.path.abspath(os.path.join(path,f'reddit.csv'))
         youtube_path=os.path.abspath(os.path.join(path,f'youtube.csv'))
         
-        # twitter_df=read_and_clean_csv(twitter_path,'date')
-        # visualizer.plot_all(twitter_df,name='Twitter')
+        twitter_df=read_and_clean_csv(twitter_path,'date')
+        visualizer.plot_all(twitter_df,name='Twitter')
         
         reddit_df=read_and_clean_csv(reddit_path,'date')
         visualizer.plot_all(reddit_df,name='Reddit')
         
-        # youtube_df=read_and_clean_csv(youtube_path,None)
-        # visualizer.plot_all(youtube_df,name='Youtube',flag=False)
+        youtube_df=read_and_clean_csv(youtube_path,None)
+        visualizer.plot_all(youtube_df,name='Youtube',flag=False)
         
 
 
