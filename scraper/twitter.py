@@ -15,40 +15,48 @@ class Twitter():
     
     def get_tweets(self,search_keywords,max_tweets=1000,is_first_run=False):
         print('Getting Tweets')
-        searched_tweets = []
-        last_id = -1
-        if is_first_run:    
-            for i in range(0,6):
+        
+        if is_first_run:
+            max_tweets = 200
+            all_tweets=[]
+            for i in range(5,-1,-1):
                 date_until=(date.today() - timedelta(days=i)).strftime('%Y-%m-%d')
                 date_since=(date.today() - timedelta(days=i+1)).strftime('%Y-%m-%d')
+                print(date_since,date_until)
+                last_id = -1
+                searched_tweets = []
+
                 while len(searched_tweets) < max_tweets:
                     count = max_tweets - len(searched_tweets)
                     try:
                         new_tweets = self.api.search(q=search_keywords,
-                                                    count=count,
-                                                    since=date_since,
-                                                    until=date_until,
-                                                    max_id=str(last_id - 1))
+                                                count=count,
+                                                since=date_since,
+                                                until=date_until,
+                                                max_id=str(last_id - 1))
                         if not new_tweets:
                             break
                         searched_tweets.extend(new_tweets)
+                        all_tweets.extend(searched_tweets)
                         last_id = new_tweets[-1].id
                     except tweepy.TweepError:
                         print('sleeping')
-                        time.sleep(self.sleep_time)
+                        time.sleep(60 * 15)
                         continue
                     except StopIteration:
                         break
         else:
-            while len(searched_tweets) < max_tweets:
-                count = max_tweets - len(searched_tweets)
+            all_tweets = []
+            last_id = -1
+            while len(all_tweets) < max_tweets:
+                count = max_tweets - len(all_tweets)
                 try:
                     new_tweets = self.api.search(q=search_keywords,
                                                 count=count,
                                                 max_id=str(last_id - 1))
                     if not new_tweets:
                         break
-                    searched_tweets.extend(new_tweets)
+                    all_tweets.extend(new_tweets)
                     last_id = new_tweets[-1].id
                 except tweepy.TweepError:
                     print('sleeping')
@@ -56,7 +64,7 @@ class Twitter():
                     continue
                 except StopIteration:
                     break
-        tweeter_data= [[tweet.created_at,tweet.user.screen_name, tweet.user.location,tweet.text] for tweet in searched_tweets]
+        tweeter_data= [[tweet.created_at,tweet.user.screen_name, tweet.user.location,tweet.text] for tweet in all_tweets]
         tweet_df = pd.DataFrame(data=tweeter_data, 
                     columns=['date','user', "location","comment"])
         return tweet_df

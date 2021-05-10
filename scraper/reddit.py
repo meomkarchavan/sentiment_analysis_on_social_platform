@@ -11,7 +11,7 @@ class Reddit():
     def get_post(self,search_keywords):
         print('Getting Reddit Posts')
         all = self.reddit.subreddit("all")
-        reddit_data= [[datetime.fromtimestamp(post.created_utc),post.author,post.url, post.title+post.selftext] for post in all.search(search_keywords, limit=1000)]
+        reddit_data= [[datetime.fromtimestamp(post.created_utc),post.author,post.url, post.title+post.selftext] for post in all.search(search_keywords, limit=200)]
         reddit_df = pd.DataFrame(data=reddit_data, 
                     columns=['date','user', "url","post"])
         comments_by_day=[]

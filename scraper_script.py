@@ -19,6 +19,7 @@ def main():
     gtrends=Trends()
     for keywords in keywords_list:
         path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'raw')))
+        is_first_run=False
         if not exists(path):
             os.makedirs(path, exist_ok=True)
             is_first_run=True
@@ -42,7 +43,7 @@ def main():
         else:
             youtube_df.to_csv(youtube_path)
             
-        trend_df=gtrends.gtrends_overtime(keyword=keywords.split()[0])
+        trend_df=gtrends.gtrends_overtime(keyword=[keywords.split()[0]])
         trends_path=os.path.abspath(os.path.join(path,f'trends{datetime.now().date()}.csv'))
         if os.path.exists(trends_path):
             read_and_concat(trends_path,trend_df,date_column=None)

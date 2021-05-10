@@ -22,6 +22,7 @@ def main():
         twitter_path=os.path.abspath(os.path.join(path,f'twitter.csv'))
         reddit_path=os.path.abspath(os.path.join(path,f'reddit.csv'))
         youtube_path=os.path.abspath(os.path.join(path,f'youtube.csv'))
+        trends_path=os.path.abspath(os.path.join(path,f'trends.csv'))
         
         twitter_df=read_and_clean_csv(twitter_path,'date')
         visualizer.plot_all(twitter_df,name='Twitter')
@@ -31,6 +32,9 @@ def main():
         
         youtube_df=read_and_clean_csv(youtube_path,None)
         visualizer.plot_all(youtube_df,name='Youtube',flag=False)
+        
+        trends_df=read_and_clean_csv(trends_path,'date')
+        visualizer.plot_gtrend_chart(trends_df,col=keywords.split()[0],name='Google Trends')
         
 
 

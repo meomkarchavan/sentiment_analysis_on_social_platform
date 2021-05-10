@@ -44,7 +44,7 @@ class Visualizer():
         _, ax = plt.subplots(figsize=(15, 6))
         sns.barplot(x="word", y="freq", data=word_counter_df, palette="PuBuGn_d", ax=ax,errwidth = 1.5).set_title(f"Words Count {name}")
         plt.show();
-        
+    
     def plot_trend_chart(self,df,col,name,date_limit=None):
         df=df.set_index('date')
         df=df.sort_index()
@@ -60,6 +60,16 @@ class Visualizer():
         else:
             ax.set_xlim([dt.date(2021,4,1),dt.date(2021,5,31)])
         ax.set(title=f'Trend Over Time {name}', xlabel='Date', ylabel='Sentiment')
+        ax.legend(loc='best')
+        fig.tight_layout()
+        plt.show()
+    def plot_gtrend_chart(self,df,col,name,date_limit=None):
+        df=df.set_index('date')
+        df=df.sort_index()
+        fig = plt.figure(figsize=(20,5))
+        ax = fig.add_subplot(111)
+        ax.plot(df.index,df[col], color='r', label=col)
+        ax.set(title='bitcoin trend over Time', xlabel='Date', ylabel='bitcoin')
         ax.legend(loc='best')
         fig.tight_layout()
         plt.show()
