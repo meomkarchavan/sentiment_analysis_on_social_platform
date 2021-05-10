@@ -7,6 +7,7 @@ from scraper.reddit import Reddit
 from scraper.youtube import Youtube
 from helpers.helpers import read_and_concat
 from datetime import datetime
+from os.path import exists
 
 def main():
     main_path=os.path.abspath(os.getenv('data_path'))
@@ -16,8 +17,10 @@ def main():
     youtube=Youtube()
     for keywords in keywords_list:
         path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'raw')))
-        os.makedirs(path, exist_ok=True)
-        twitter_df=twitter.get_tweets(search_keywords=keywords,max_tweets=1000)
+        if not exists(path):
+            os.makedirs(path, exist_ok=True)
+            is_first_run=True
+        twitter_df=twitter.get_tweets(search_keywords=keywords,max_tweets=1000,is_first_run)
         twitter_path=os.path.abspath(os.path.join(path,f'twitter{datetime.now().date()}.csv'))
         if os.path.exists(twitter_path):
             read_and_concat(twitter_path,twitter_df,'date')
