@@ -1,4 +1,5 @@
 import os
+from scraper.trends import Trends
 from dotenv import load_dotenv
 load_dotenv()
 import pandas as pd
@@ -15,12 +16,13 @@ def main():
     twitter=Twitter()
     reddit=Reddit()
     youtube=Youtube()
+    gtrends=Trends()
     for keywords in keywords_list:
         path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'raw')))
         if not exists(path):
             os.makedirs(path, exist_ok=True)
             is_first_run=True
-        twitter_df=twitter.get_tweets(search_keywords=keywords,max_tweets=1000,is_first_run)
+        twitter_df=twitter.get_tweets(search_keywords=keywords,max_tweets=1000,is_first_run=is_first_run)
         twitter_path=os.path.abspath(os.path.join(path,f'twitter{datetime.now().date()}.csv'))
         if os.path.exists(twitter_path):
             read_and_concat(twitter_path,twitter_df,'date')
@@ -39,6 +41,15 @@ def main():
             read_and_concat(youtube_path,youtube_df,date_column=None)
         else:
             youtube_df.to_csv(youtube_path)
+            
+        trend_df=gtrends.gtrends_overtime(keyword=keywords.split()[0])
+        trends_path=os.path.abspath(os.path.join(path,f'trends{datetime.now().date()}.csv'))
+        if os.path.exists(trends_path):
+            read_and_concat(trends_path,trend_df,date_column=None)
+        else:
+            trend_df.to_csv(trends_path)
+            
+        
 
 if __name__=='__main__':
     main()
