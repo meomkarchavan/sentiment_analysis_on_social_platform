@@ -20,6 +20,7 @@ class Visualizer():
         if flag:
             self.plot_trend_chart(df,'Polarity',name,save=save,save_path=save_path)
             
+            
     def plot_wordcloud(self,df,col,name,save=False,save_path=None):
         allWords = ' '.join([str(twts) for twts in df[col]])
         wordCloud = WordCloud(width=500, height=300, random_state=21, max_font_size=110).generate(allWords)
@@ -27,9 +28,13 @@ class Visualizer():
         plt.title(f'Word Cloud {name}')
         plt.axis('off')
         if not save:
+            plt.tight_layout()
             plt.show()
+            plt.clf()
         else:
+            plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_wordcloud.png'))
+            plt.clf()
         
     
     def plot_sentiment_count(self,df,col,name,save=False,save_path=None):
@@ -39,9 +44,13 @@ class Visualizer():
         plt.ylabel('Counts')
         df[col].value_counts().plot(kind = 'bar')
         if not save:
+            plt.tight_layout()
             plt.show()
+            plt.clf()
         else:
+            plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_sentiment_count.png'))
+            plt.clf()
         
     def plot_word_count(self,df,col,name,save=False,save_path=None):
         cv = CountVectorizer()
@@ -52,9 +61,13 @@ class Visualizer():
         _, ax = plt.subplots(figsize=(15, 6))
         sns.barplot(x="word", y="freq", data=word_counter_df, palette="PuBuGn_d", ax=ax,errwidth = 1.5).set_title(f"Words Count {name}")
         if not save:
+            plt.tight_layout()
             plt.show()
+            plt.clf()
         else:
+            plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_word_count.png'))
+            plt.clf()
     
     def plot_trend_chart(self,df,col,name,date_limit=None,save=False,save_path=None):
         df=df.set_index('date')
@@ -75,9 +88,13 @@ class Visualizer():
         ax.legend(loc='best')
         fig.tight_layout()
         if not save:
+            plt.tight_layout()
             plt.show()
+            plt.clf()
         else:
+            plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_trend_chart.png'))
+            plt.clf()
         
     def plot_gtrend_chart(self,df,col,name,save=False,save_path=None):
         df=df.set_index('date')
@@ -89,9 +106,13 @@ class Visualizer():
         ax.legend(loc='best')
         fig.tight_layout()
         if not save:
+            plt.tight_layout()
             plt.show()
+            plt.clf()
         else:
+            plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_trend_chart.png'))
+            plt.clf()
         
         
         
