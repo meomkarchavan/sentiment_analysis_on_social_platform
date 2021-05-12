@@ -1,9 +1,13 @@
 from datetime import datetime
 import pandas as pd
+import datetime as dt
+
 dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
 def read_and_concat(path,df,date_column):
   if date_column:
     df=pd.concat([df,read_and_clean_csv(path,date_column)])
+    df['date']=pd.to_datetime(df['date'],)
+    df['date']=df['date'].apply(lambda x: dt.datetime.strftime(x, '%Y-%m-%d %H:%M:%S'))
     df.drop_duplicates(subset=date_column, keep="first", inplace=True)
     df.sort_values(by=[date_column], inplace=True)
   else:

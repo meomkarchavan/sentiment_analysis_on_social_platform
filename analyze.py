@@ -12,8 +12,13 @@ from os.path import exists
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 def main():
-    main_path=os.path.abspath(os.getenv('data_path'))
-    keywords_list=pd.read_csv(os.getenv('keyword_csv_path'))['keywords'].to_list()
+    main_path=os.getenv('data_path')
+    if not main_path:
+        main_path=os.path.join(os.path.dirname(os.path.realpath(__file__)),'Data')
+    keywords_list_path=os.getenv('keyword_csv_path')
+    if not keywords_list_path:
+        keywords_list_path=os.path.join(os.path.dirname(os.path.realpath(__file__)),'keywords.csv')
+    keywords_list=pd.read_csv(keywords_list_path)['keywords'].to_list()
     for keywords in keywords_list:
         save_path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'analyzed')))
         os.makedirs(save_path, exist_ok=True)
