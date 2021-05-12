@@ -58,8 +58,9 @@ class Visualizer():
         if date_limit:
             ax.set_xlim([date_limit[0],date_limit[1]])
         else:
-            ax.set_xlim([dt.date(2021,4,1),dt.date(2021,5,31)])
-        ax.set(title=f'Trend Over Time {name}', xlabel='Date', ylabel='Sentiment')
+            pass
+            # ax.set_xlim([dt.date(2021,4,1),dt.date(2021,5,31)])
+        ax.set(title=f'{name} trend over Time', xlabel='Date', ylabel='Sentiment')
         ax.legend(loc='best')
         fig.tight_layout()
         plt.show()
@@ -69,7 +70,7 @@ class Visualizer():
         fig = plt.figure(figsize=(20,5))
         ax = fig.add_subplot(111)
         ax.plot(df.index,df[col], color='r', label=col)
-        ax.set(title='bitcoin trend over Time', xlabel='Date', ylabel='bitcoin')
+        ax.set(title=f'{name} trend over Time', xlabel='Date', ylabel='Sentiment')
         ax.legend(loc='best')
         fig.tight_layout()
         plt.show()

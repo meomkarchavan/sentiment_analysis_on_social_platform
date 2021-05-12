@@ -18,7 +18,6 @@ def main():
     visualizer=Visualizer()
     for keywords in keywords_list:
         path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'analyzed')))
-        os.makedirs(path, exist_ok=True)
         twitter_path=os.path.abspath(os.path.join(path,f'twitter.csv'))
         reddit_path=os.path.abspath(os.path.join(path,f'reddit.csv'))
         youtube_path=os.path.abspath(os.path.join(path,f'youtube.csv'))
