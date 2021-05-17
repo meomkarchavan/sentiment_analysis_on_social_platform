@@ -18,8 +18,11 @@ class Youtube():
         comments=[]
         for res in results:
             metadata = self.easy_wrapper.get_metadata(video_id=res['video_id'])
-            if metadata['comments']:
-                comments+=metadata['comments']
+            try:
+                if metadata['comments']:
+                    comments+=metadata['comments']
+            except KeyError:
+                pass
         youtube_df = pd.DataFrame(data=comments, 
                     columns=['comment'])
         return youtube_df
