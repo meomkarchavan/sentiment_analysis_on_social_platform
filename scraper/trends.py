@@ -7,7 +7,7 @@ class Trends():
     def __init__(self):
         self.pytrends = TrendReq()
     
-    def gtrends_overtime(self,keyword,category=71, time='all', loc=''):
+    def gtrends_overtime(self,keyword,category=0, time='all', loc=''):
         print('Getting Google Trends Data')
         self.pytrends.build_payload(keyword, cat=category, timeframe=time, geo=loc, gprop='')
         df_time = self.pytrends.interest_over_time()

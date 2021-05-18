@@ -28,6 +28,7 @@ def main():
     
     visualizer=Visualizer()
     for keywords in keywords_list:
+        print(keywords)
         path=(os.path.abspath(os.path.join(main_path,'_'.join(keywords.split()),'analyzed')))
         twitter_path=os.path.abspath(os.path.join(path,f'twitter.csv'))
         reddit_path=os.path.abspath(os.path.join(path,f'reddit.csv'))
