@@ -18,13 +18,16 @@ def read_and_concat(path,df,date_column):
 
 def read_and_clean_csv(path,date_column=None):
   if date_column:
-    df=pd.read_csv(path,parse_dates=[date_column], date_parser=dateparse ,lineterminator='\n')
+    # df=pd.read_csv(path,parse_dates=[date_column], date_parser=dateparse ,lineterminator='\n') #for mac
+    df=pd.read_csv(path,parse_dates=[date_column], date_parser=dateparse)
+
     try:
       df=df.drop('Unnamed: 0',axis=1)
     except KeyError:
       pass
   else:
-    df=pd.read_csv(path,index_col=False,lineterminator='\n')
+    # df=pd.read_csv(path,index_col=False,lineterminator='\n')#mac
+    df=pd.read_csv(path,index_col=False)
     try:
       df=df.drop('Unnamed: 0',axis=1)
     except KeyError:

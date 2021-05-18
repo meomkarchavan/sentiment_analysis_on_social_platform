@@ -35,6 +35,7 @@ class Visualizer():
             plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_wordcloud.png'))
             plt.clf()
+            plt.close()
         
     
     def plot_sentiment_count(self,df,col,name,save=False,save_path=None):
@@ -47,10 +48,12 @@ class Visualizer():
             plt.tight_layout()
             plt.show()
             plt.clf()
+            
         else:
             plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_sentiment_count.png'))
             plt.clf()
+            plt.close()
         
     def plot_word_count(self,df,col,name,save=False,save_path=None):
         cv = CountVectorizer()
@@ -68,6 +71,7 @@ class Visualizer():
             plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_word_count.png'))
             plt.clf()
+            plt.close()
     
     def plot_trend_chart(self,df,col,name,date_limit=None,save=False,save_path=None):
         df=df.set_index('date')
@@ -95,6 +99,7 @@ class Visualizer():
             plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_trend_chart.png'))
             plt.clf()
+            plt.close()
         
     def plot_gtrend_chart(self,df,col,name,save=False,save_path=None):
         df=df.set_index('date')
@@ -113,6 +118,7 @@ class Visualizer():
             plt.tight_layout()
             plt.savefig(os.path.join(save_path,f'{name}_trend_chart.png'))
             plt.clf()
+            plt.close()
         
         
         
