@@ -4,6 +4,7 @@ test.py
 .env
 scraper/__pycache__/
 helpers/__pycache__/
-Data/
-Visualization/
-keywords.csv
+Data/*
+!Data/.gitkeep
+Visualization/*
+!Visualization/.gitkeep
